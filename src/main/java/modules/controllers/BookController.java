@@ -1,4 +1,4 @@
-package modules.hello;
+package modules.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import modules.entities.Book;
-import modules.service.BookService;
+import modules.services.BookService;
 
 @RestController
 public class BookController {
