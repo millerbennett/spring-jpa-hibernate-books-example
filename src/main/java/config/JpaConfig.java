@@ -27,7 +27,7 @@ public class JpaConfig {
 	}
 	
 	@Bean
-	public EntityManager getEntityManagerBean() {
+	public EntityManager entityManager() {
 		return (EntityManager)entityManagerFactory()
 				.getNativeEntityManagerFactory().createEntityManager();
 	}

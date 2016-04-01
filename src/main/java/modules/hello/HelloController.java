@@ -9,18 +9,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import modules.entities.Book;
-import modules.repositories.BookRepository;
+import modules.service.BookService;
 
 @RestController
 public class HelloController {
 	
-	@Autowired BookRepository repository;
+	@Autowired BookService service;
 	
 	@RequestMapping(value = "/books/{id}", method = RequestMethod.GET)
     @ResponseBody
     public Book getBook(@PathVariable("id") Integer id) {
 		System.out.println("=== Fetching book ===");
-        Book book = repository.findOne(id);
+        Book book = service.getBook(id);
         System.out.println(book);
         System.out.println("=== End book ===");
         return book;
@@ -30,6 +30,7 @@ public class HelloController {
     @ResponseBody
     public Book createBook(@RequestBody Book book) {
 		System.out.println("=== Received book ===");
+		service.saveBook(book);
         System.out.println(book);
         System.out.println("=== End received book ===");
         return book;
