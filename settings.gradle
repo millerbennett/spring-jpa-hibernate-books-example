@@ -16,4 +16,4 @@ include 'api'
 include 'services:webservice'
 */
 
-rootProject.name = 'hibernate'
+rootProject.name = 'spring-jpa-hibernate-books-example'
