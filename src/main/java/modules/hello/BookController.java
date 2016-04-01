@@ -12,7 +12,7 @@ import modules.entities.Book;
 import modules.service.BookService;
 
 @RestController
-public class HelloController {
+public class BookController {
 	
 	@Autowired BookService service;
 	
