@@ -3,3 +3,21 @@ A sample application built to illustrate Spring JPA in conjunction with Hibernat
 ```
 ./gradlew deploywar
 ```
+
+Table Structure (see the full sql dump in **library.sql**:
+
+```
+CREATE TABLE books (
+    id integer NOT NULL,
+    name character varying
+);
+
+CREATE TABLE chapters (
+    id integer NOT NULL,
+    title character varying,
+    book_id integer
+);
+
+ALTER TABLE ONLY chapters
+    ADD CONSTRAINT book_id_fk FOREIGN KEY (book_id) REFERENCES books(id) ON DELETE CASCADE;
+```
