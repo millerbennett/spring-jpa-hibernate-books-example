@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -18,21 +19,21 @@ import javax.persistence.Table;
 @Table(name="books")
 public class Book {
 	
-	private Integer bookId;
+	private Integer id;
 	private String name;
 	private Set<Chapter> chapters = new HashSet<Chapter>();
 	
 	@Id
-	@SequenceGenerator(name="book_id_seq", sequenceName="book_bookid_seq", allocationSize=1)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="book_id_seq")
-	public Integer getBookId() {
-		return bookId;
+	@SequenceGenerator(name="book_id_seq", sequenceName="book_id_seq", allocationSize=1)
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="book_id_seq")
+	public Integer getId() {
+		return id;
 	}
-	public void setBookId(Integer bookId) {
-		this.bookId = bookId;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 	
-	@Column(name="name")
+	@Column
 	public String getName() {
 		return name;
 	}
@@ -40,7 +41,8 @@ public class Book {
 		this.name = name;
 	}
 	
-	@OneToMany(cascade=CascadeType.ALL, orphanRemoval=true, fetch=FetchType.EAGER, mappedBy="book")
+	@OneToMany(cascade=CascadeType.ALL, orphanRemoval=true, fetch=FetchType.EAGER)
+	@JoinColumn(name="book_id")
 	public Set<Chapter> getChapters() {
 		return chapters;
 	}
@@ -50,7 +52,7 @@ public class Book {
 	
 	@Override
 	public String toString() {
-		String out = "Book [bookId=" + bookId + ", name=" + name + "]";
+		String out = "Book [bookId=" + id + ", name=" + name + "]";
 		for (Chapter chap : chapters) {
 			System.out.println(chap);
 		}

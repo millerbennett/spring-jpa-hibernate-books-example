@@ -2,9 +2,9 @@ package modules.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import modules.entities.Book;
-import modules.entities.Chapter;
 import modules.repositories.BookRepository;
 
 @Service
@@ -16,11 +16,8 @@ public class BookService {
 		return repository.findOne(id);
 	}
 	
+	@Transactional
 	public Book saveBook(Book book) {
-		for (Chapter chap : book.getChapters()) {
-			chap.setBook(book);
-		}
-		repository.save(book);
-		return book;
+		return repository.save(book);
 	}
 }
