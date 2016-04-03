@@ -35,7 +35,7 @@ public class Chapter {
 	
 	@Override
 	public String toString() {
-		return "Chapter [id=" + id + ", title=" + title + ", book=" + "]";
+		return "Chapter [id=" + id + ", title=" + title + "]";
 	}
 	
 }
