@@ -14,7 +14,6 @@ public class Chapter {
 	
 	private Integer id;
 	private String title;
-	private Integer bookId;
 	
 	@Id
 	@SequenceGenerator(name="chapter_id_seq", sequenceName="chapters_id_seq", allocationSize=1)
@@ -24,14 +23,6 @@ public class Chapter {
 	}
 	public void setId(Integer id) {
 		this.id = id;
-	}
-	
-	@Column(name="book_id")
-	public Integer getBookId() {
-		return bookId;
-	}
-	public void setBookId(Integer bookId) {
-		this.bookId = bookId;
 	}
 	
 	@Column
@@ -44,7 +35,7 @@ public class Chapter {
 	
 	@Override
 	public String toString() {
-		return "Chapter [id=" + id + ", title=" + title + ", book=" + bookId + "]";
+		return "Chapter [id=" + id + ", title=" + title + ", book=" + "]";
 	}
 	
 }

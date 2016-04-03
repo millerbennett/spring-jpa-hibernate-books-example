@@ -42,7 +42,7 @@ public class Book {
 	}
 	
 	@OneToMany(cascade=CascadeType.ALL, orphanRemoval=true, fetch=FetchType.EAGER)
-	@JoinColumn(name="book_id")
+	@JoinColumn(name="book_id", updatable=false, nullable=false, insertable=true)
 	public Set<Chapter> getChapters() {
 		return chapters;
 	}
