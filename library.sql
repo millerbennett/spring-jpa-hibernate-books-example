@@ -73,7 +73,7 @@ ALTER SEQUENCE book_id_seq OWNED BY books.id;
 CREATE TABLE chapters (
     id integer NOT NULL,
     title character varying,
-    book_id integer
+    book_id integer NOT NULL
 );
 
 

@@ -15,7 +15,7 @@ CREATE TABLE books (
 CREATE TABLE chapters (
     id integer NOT NULL,
     title character varying,
-    book_id integer
+    book_id integer NOT NULL
 );
 
 ALTER TABLE ONLY chapters
