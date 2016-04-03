@@ -16,7 +16,7 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
-@EnableJpaRepositories("modules.repositories")
+@EnableJpaRepositories("web.repositories")
 @EnableTransactionManagement
 public class JpaConfig {
 	
