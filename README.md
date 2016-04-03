@@ -4,7 +4,7 @@ A sample application built to illustrate Spring JPA in conjunction with Hibernat
 ./gradlew deploywar
 ```
 
-Table Structure (see the full sql dump in **library.sql**:
+Table Structure (see the full sql dump in **library.sql**):
 
 ```sql
 CREATE TABLE books (
