@@ -1,11 +1,11 @@
-package modules.services;
+package web.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import modules.entities.Book;
-import modules.repositories.BookRepository;
+import web.entities.Book;
+import web.repositories.BookRepository;
 
 @Service
 public class BookService {

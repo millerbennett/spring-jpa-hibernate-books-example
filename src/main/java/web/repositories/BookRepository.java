@@ -1,8 +1,8 @@
-package modules.repositories;
+package web.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import modules.entities.Book;
+import web.entities.Book;
 
 public interface BookRepository extends JpaRepository<Book, Integer> {
 

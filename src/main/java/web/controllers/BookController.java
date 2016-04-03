@@ -1,4 +1,4 @@
-package modules.controllers;
+package web.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import modules.entities.Book;
-import modules.services.BookService;
+import web.entities.Book;
+import web.services.BookService;
 
 @RestController
 public class BookController {

@@ -1,4 +1,4 @@
-package modules.entities;
+package web.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

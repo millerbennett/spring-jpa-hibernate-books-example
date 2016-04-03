@@ -8,7 +8,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 @Configuration
 @EnableWebMvc
-@ComponentScan({"modules"})
+@ComponentScan("web")
 @Import({ JpaConfig.class })
 public class AppConfig extends WebMvcConfigurerAdapter {
 

@@ -1,4 +1,4 @@
-package modules.entities;
+package web.entities;
 
 import java.util.HashSet;
 import java.util.Set;
