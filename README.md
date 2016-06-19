@@ -12,12 +12,23 @@ CREATE TABLE books (
     name character varying
 );
 
+CREATE TABLE book_details (
+    id integer NOT NULL,
+    book_id integer NOT NULL,
+    description character varying,
+    author character varying
+);
+
 CREATE TABLE chapters (
     id integer NOT NULL,
-    title character varying,
-    book_id integer NOT NULL
+    book_id integer NOT NULL,
+    title character varying
 );
 
 ALTER TABLE ONLY chapters
     ADD CONSTRAINT book_id_fk FOREIGN KEY (book_id) REFERENCES books(id) ON DELETE CASCADE;
+
+
+ALTER TABLE ONLY book_details
+    ADD CONSTRAINT book_detail_book_fk FOREIGN KEY (book_id) REFERENCES books(id) ON DELETE CASCADE;
 ```

@@ -14,14 +14,14 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: -
 --
 
 CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 
 
 --
--- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: -
 --
 
 COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
@@ -34,7 +34,38 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- Name: books; Type: TABLE; Schema: public; Owner: benmiller
+-- Name: book_details; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE book_details (
+    book_id integer NOT NULL,
+    description character varying,
+    author character varying,
+    id integer NOT NULL
+);
+
+
+--
+-- Name: book_details_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE book_details_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: book_details_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE book_details_id_seq OWNED BY book_details.id;
+
+
+--
+-- Name: books; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE books (
@@ -43,10 +74,8 @@ CREATE TABLE books (
 );
 
 
-ALTER TABLE books OWNER TO benmiller;
-
 --
--- Name: book_id_seq; Type: SEQUENCE; Schema: public; Owner: benmiller
+-- Name: book_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
 CREATE SEQUENCE book_id_seq
@@ -57,17 +86,15 @@ CREATE SEQUENCE book_id_seq
     CACHE 1;
 
 
-ALTER TABLE book_id_seq OWNER TO benmiller;
-
 --
--- Name: book_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: benmiller
+-- Name: book_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
 ALTER SEQUENCE book_id_seq OWNED BY books.id;
 
 
 --
--- Name: chapters; Type: TABLE; Schema: public; Owner: benmiller
+-- Name: chapters; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE chapters (
@@ -77,10 +104,8 @@ CREATE TABLE chapters (
 );
 
 
-ALTER TABLE chapters OWNER TO benmiller;
-
 --
--- Name: chapters_id_seq; Type: SEQUENCE; Schema: public; Owner: benmiller
+-- Name: chapters_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
 CREATE SEQUENCE chapters_id_seq
@@ -91,31 +116,44 @@ CREATE SEQUENCE chapters_id_seq
     CACHE 1;
 
 
-ALTER TABLE chapters_id_seq OWNER TO benmiller;
-
 --
--- Name: chapters_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: benmiller
+-- Name: chapters_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
 ALTER SEQUENCE chapters_id_seq OWNED BY chapters.id;
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: benmiller
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY book_details ALTER COLUMN id SET DEFAULT nextval('book_details_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY books ALTER COLUMN id SET DEFAULT nextval('book_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: benmiller
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY chapters ALTER COLUMN id SET DEFAULT nextval('chapters_id_seq'::regclass);
 
 
 --
--- Name: book_pkey; Type: CONSTRAINT; Schema: public; Owner: benmiller
+-- Name: book_details_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY book_details
+    ADD CONSTRAINT book_details_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: book_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY books
@@ -123,7 +161,7 @@ ALTER TABLE ONLY books
 
 
 --
--- Name: chapters_pkey; Type: CONSTRAINT; Schema: public; Owner: benmiller
+-- Name: chapters_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY chapters
@@ -131,7 +169,15 @@ ALTER TABLE ONLY chapters
 
 
 --
--- Name: book_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: benmiller
+-- Name: book_detail_book_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY book_details
+    ADD CONSTRAINT book_detail_book_fk FOREIGN KEY (book_id) REFERENCES books(id) ON DELETE CASCADE;
+
+
+--
+-- Name: book_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY chapters
@@ -139,7 +185,7 @@ ALTER TABLE ONLY chapters
 
 
 --
--- Name: public; Type: ACL; Schema: -; Owner: benmiller
+-- Name: public; Type: ACL; Schema: -; Owner: -
 --
 
 REVOKE ALL ON SCHEMA public FROM PUBLIC;
@@ -149,7 +195,17 @@ GRANT ALL ON SCHEMA public TO PUBLIC;
 
 
 --
--- Name: books; Type: ACL; Schema: public; Owner: benmiller
+-- Name: book_details; Type: ACL; Schema: public; Owner: -
+--
+
+REVOKE ALL ON TABLE book_details FROM PUBLIC;
+REVOKE ALL ON TABLE book_details FROM benmiller;
+GRANT ALL ON TABLE book_details TO benmiller;
+GRANT ALL ON TABLE book_details TO librarian;
+
+
+--
+-- Name: books; Type: ACL; Schema: public; Owner: -
 --
 
 REVOKE ALL ON TABLE books FROM PUBLIC;
@@ -159,7 +215,7 @@ GRANT ALL ON TABLE books TO librarian;
 
 
 --
--- Name: book_id_seq; Type: ACL; Schema: public; Owner: benmiller
+-- Name: book_id_seq; Type: ACL; Schema: public; Owner: -
 --
 
 REVOKE ALL ON SEQUENCE book_id_seq FROM PUBLIC;
@@ -169,7 +225,7 @@ GRANT ALL ON SEQUENCE book_id_seq TO librarian;
 
 
 --
--- Name: chapters; Type: ACL; Schema: public; Owner: benmiller
+-- Name: chapters; Type: ACL; Schema: public; Owner: -
 --
 
 REVOKE ALL ON TABLE chapters FROM PUBLIC;
@@ -179,7 +235,7 @@ GRANT ALL ON TABLE chapters TO librarian;
 
 
 --
--- Name: chapters_id_seq; Type: ACL; Schema: public; Owner: benmiller
+-- Name: chapters_id_seq; Type: ACL; Schema: public; Owner: -
 --
 
 REVOKE ALL ON SEQUENCE chapters_id_seq FROM PUBLIC;
