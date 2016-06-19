@@ -35,4 +35,13 @@ public class BookController {
         System.out.println("=== End received book ===");
         return book;
     }
+	
+	@RequestMapping(value = "/books/{id}", method = RequestMethod.PUT)
+    @ResponseBody
+    public Book updateBook(@RequestBody Book book, @PathVariable("id") Integer id) {
+		System.out.println("=== Received book to update ===");
+		service.saveBook(book);
+        System.out.println("=== End received book to update ===");
+        return service.getBook(id);
+    }
 }

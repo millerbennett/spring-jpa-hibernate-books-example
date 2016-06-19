@@ -12,8 +12,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name="books")
@@ -21,6 +24,7 @@ public class Book {
 	
 	private Integer id;
 	private String name;
+	private BookDetail details;
 	private Set<Chapter> chapters = new HashSet<Chapter>();
 	
 	@Id
@@ -41,8 +45,19 @@ public class Book {
 		this.name = name;
 	}
 	
+	@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@JoinColumn(name="id", referencedColumnName="book_id")
+	@JsonManagedReference
+	public BookDetail getDetails() {
+		return details;
+	}
+	public void setDetails(BookDetail details) {
+		this.details = details;
+	}
+	
 	@OneToMany(cascade=CascadeType.ALL, orphanRemoval=true, fetch=FetchType.EAGER)
-	@JoinColumn(name="book_id", updatable=false, nullable=false, insertable=true)
+	@JoinColumn(name="book_id")
+	@JsonManagedReference
 	public Set<Chapter> getChapters() {
 		return chapters;
 	}
