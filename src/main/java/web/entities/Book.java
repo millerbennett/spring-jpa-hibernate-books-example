@@ -10,7 +10,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
@@ -45,8 +44,7 @@ public class Book {
 		this.name = name;
 	}
 	
-	@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-	@JoinColumn(name="id", referencedColumnName="book_id")
+	@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="book")
 	@JsonManagedReference
 	public BookDetail getDetails() {
 		return details;
@@ -55,8 +53,7 @@ public class Book {
 		this.details = details;
 	}
 	
-	@OneToMany(cascade=CascadeType.ALL, orphanRemoval=true, fetch=FetchType.EAGER)
-	@JoinColumn(name="book_id")
+	@OneToMany(cascade=CascadeType.ALL, orphanRemoval=true, fetch=FetchType.EAGER, mappedBy="book")
 	@JsonManagedReference
 	public Set<Chapter> getChapters() {
 		return chapters;

@@ -18,7 +18,7 @@ public class BookService {
 	
 	@Transactional
 	public Book saveBook(Book book) {
-		repository.save(book);
-		return getBook(book.getId());
+		book = repository.save(book);
+		return book;
 	}
 }
